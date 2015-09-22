@@ -19,7 +19,7 @@ library(latticeExtra)
 #Adaptor trimming and Fastq filtering settings
 inputFile1="R1.fastq.gz"  # Fastq file for reads1 (.fastq required)
 inputFile2="R2.fastq.gz"  # Fastq file for reads2 (.fastq required)
-adaptor="adaptor_short.txt"     # adaptor sequence in fasta format. Remember to change adaptor in line 70 also if you change it here!
+adaptor="adaptor.txt"     # adaptor sequence in fasta format. Remember to change adaptor in line 70 also if you change it here!
 barcodeLength=7        # Miniumum value is 5
 tagLength=3  				  # e.g. CCC
 uncorrectLength=13		# The # 5prime leading bases of the template (after tag) where no error is tolerated. Also used to determine molecule orientations.
@@ -79,7 +79,7 @@ FastqTrimmer <- function (fastq, barcodeLength,
   barcode<-subseq(fqreads, start=1, end=barcodeLength+tagLength+uncorrectLength)
   
   #Trim barcodes and adaptor sequences
-  adaptor<-readDNAStringSet('adaptor_short.txt')[[1]]
+  adaptor<-readDNAStringSet('adaptor.txt')[[1]]
   adaptorLength <- nchar(adaptor)
   max.Rmismatch<-mismatch.rate*1:adaptorLength
   adaptor<-c(adaptor, DNAString(paste(rep('N',(151-barcodeLength-tagLength-adaptorLength)), collapse='')))
