@@ -89,7 +89,7 @@ FastqTrimmer <- function (fastq, barcodeLength,
   trim<-trimLRPatterns(Rpattern=adaptor, subject=fqreads.trim, max.Rmismatch=max.Rmismatch, Rfixed='subject', ranges=TRUE, with.Rindels=TRUE)
   
   fqreads.trim<-subseq(fqreads.trim, start=start(trim), end=end(trim))
-  qual.trim<-subseq(quality(quality(fastq)), start=start(trim), end=end(trim))
+  qual.trim<-subseq(quality(quality(fastq)), start=barcodeLength+tagLength+start(trim), end=barcodeLength+tagLength+end(trim))
   
   
   dfFastq<-DataFrame(sread=fqreads.trim, quality=qual.trim, id=id(fastq), barcode=barcode)
